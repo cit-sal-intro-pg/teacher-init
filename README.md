@@ -1,19 +1,19 @@
 # SAL Teacher Initializer (`teacher-init`)
 
 小学校高学年向けプログラミング教材「SAL (Sugoroku Active Learning)」の教師用観察パネル専用イニシャライザーです。  
-クライアント端末上の Deno を用いて、SAL サーバー（FastAPI）から配信される TypeScript コードをオンザフライでトランスパイルし、DuckDB-Wasm + Malloy による多次元分析画面をブラウザまたはネイティブ WebView 上にワンコマンドで立ち上げます。
+クライアント端末上の Deno を用いて、SAL サーバー（FastAPI）から配信される TypeScript コードをオンザフライでトランスパイルし、DuckDB-Wasm + Malloy による多次元分析画面をブラウザまたはネイティブ WebView 上にワンクリック・ワンコマンドで立ち上げます。
 
 ---
 
 ## 特長
 
-1. **ワンコマンド初期化＆起動**:
-   - `deno run -A http://sal.local:8000/app/teacher/initializer/init.ts`（またはインストール済みコマンド `sal-teacher`）を叩くだけで、ローカルプロキシ起動 ➔ TSオンザフライトランスパイル ➔ ブラウザ表示が一気通貫で完了します。
+1. **ワンクリック / ワンコマンド初期化＆起動**:
+   - macOS (`start.command`) / Windows (`start.bat`) をダブルクリック、あるいはコマンドラインで `deno run -A init.ts` を叩くだけで、ローカルプロキシ起動 ➔ TSオンザフライトランスパイル ➔ ブラウザ表示が一気通貫で完了します。
 2. **OS 標準ブラウザ最優先 ＆ 軽量 `deno-webview` フォールバック**:
    - macOS（`open`）、Windows（`start`）、Linux（`xdg-open`）による既存ブラウザの起動を最優先。
    - ブラウザが見つからない場合や独立ウィンドウで動かしたい場合は、OS ネイティブの WebKit / WebView2 / WebKitGTK を利用する `deno-webview` にフォールバックするため、巨大な Chromium バイナリのダウンロードが一切不要です。
 3. **教室 Wi-Fi 通信負荷ゼロ（重い資産の事前キャッシュ）**:
-   - DuckDB-Wasm や Malloy、DaisyUI CSS、WebView 依存は、事前の `--prep` 実行時にローカル（`~/.cache/sal/teacher/`）へキャッシュ。授業中の閉域 LAN では重い Wasm の転送が一切発生しません。
+   - DuckDB-Wasm や Malloy、DaisyUI CSS、WebView 依存は、事前の `prep` 実行時にローカル（`~/.cache/sal/teacher/`）へキャッシュ。授業中の閉域 LAN では重い Wasm の転送が一切発生しません。
 4. **サーバー環境の完全 Python 純化**:
    - サーバー側ホスト（親機 Mac）で Node.js や Vite、`node_modules` のビルド環境を抱える必要がなくなり、FastAPI + `uv` のみで完全動作します。
 5. **公開リポジトリ安全設計**:
@@ -25,12 +25,15 @@
 
 ### 1. 事前準備（インターネット接続環境で 1 回だけ実行）
 
-自宅や職員室など、インターネットが使える環境で以下のコマンドを実行し、必要な基盤アセットをローカルにキャッシュします。
+自宅や職員室など、インターネットが使える環境で事前準備を行い、必要な基盤アセットをローカルにキャッシュします。
 
-```bash
-# 準備コマンドの実行（Wasm, Malloy, DaisyUI CSS をローカルキャッシュ）
-deno run -A init.ts --prep
-```
+- **ワンクリック（推奨）**:
+  - **macOS**: `prep.command` をダブルクリック
+  - **Windows**: `prep.bat` をダブルクリック
+- **コマンドライン**:
+  ```bash
+  deno run -A init.ts --prep
+  ```
 
 > **💡 日常利用をさらに簡単にする「コマンド化（エイリアス）」:**
 > ```bash
@@ -42,15 +45,19 @@ deno run -A init.ts --prep
 
 ### 2. 授業本番（教室の完全オフライン・閉域 LAN 環境）
 
-教室で親機 Mac のローカル AP（`sal.local`）に接続し、以下のワンコマンドを実行します。
+教室で親機 Mac のローカル AP（`sal.local`）に接続し、以下のいずれかで起動します。
 
-```bash
-# 標準起動（http://sal.local:8000 に接続してブラウザを自動起動）
-deno run -A init.ts
+- **ワンクリック（推奨）**:
+  - **macOS**: `start.command` をダブルクリック（自動で Deno を検出し、ブラウザを開きます）
+  - **Windows**: `start.bat` をダブルクリック
+- **コマンドライン**:
+  ```bash
+  # 標準起動（http://sal.local:8000 に接続してブラウザを自動起動）
+  deno run -A init.ts
 
-# （または、インストール済みの場合）
-sal-teacher
-```
+  # （または、インストール済みの場合）
+  sal-teacher
+  ```
 
 #### mDNS が名前解決できない環境（自治体管理端末など）の場合
 サーバーの IP アドレスを引数に渡すことで、即座に直接接続できます。
