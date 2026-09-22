@@ -1,0 +1,17 @@
+{
+  "name": "@sal/teacher-initializer",
+  "version": "0.1.0",
+  "description": "Standalone Deno initializer for SAL Teacher Observation Dashboard with on-the-fly transpilation, local caching, and native webview fallback",
+  "exports": "./init.ts",
+  "tasks": {
+    "prep": "deno run -A init.ts --prep",
+    "start": "deno run -A init.ts"
+  },
+  "imports": {
+    "esbuild": "npm:esbuild@^0.25.0",
+    "webview": "https://deno.land/x/webview@0.7.6/mod.ts"
+  },
+  "compilerOptions": {
+    "lib": ["deno.window", "dom"]
+  }
+}
