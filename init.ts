@@ -1,5 +1,5 @@
 /**
- * SAL Teacher Initializer (sal-teacher-initializer)
+ * SAL Teacher Initializer (teacher-init)
  *
  * Standalone, zero-dependency Deno initializer for SAL Teacher Observation Dashboard.
  *

@@ -1,5 +1,5 @@
 {
-  "name": "@sal/teacher-initializer",
+  "name": "@sal/teacher-init",
   "version": "0.1.0",
   "description": "Standalone Deno initializer for SAL Teacher Observation Dashboard with on-the-fly transpilation, local caching, and native webview fallback",
   "exports": "./init.ts",

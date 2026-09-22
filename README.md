@@ -1,4 +1,4 @@
-# SAL Teacher Initializer (`sal-teacher-initializer`)
+# SAL Teacher Initializer (`teacher-init`)
 
 小学校高学年向けプログラミング教材「SAL (Sugoroku Active Learning)」の教師用観察パネル専用イニシャライザーです。  
 クライアント端末上の Deno を用いて、SAL サーバー（FastAPI）から配信される TypeScript コードをオンザフライでトランスパイルし、DuckDB-Wasm + Malloy による多次元分析画面をブラウザまたはネイティブ WebView 上にワンコマンドで立ち上げます。
